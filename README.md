@@ -1,3 +1,1 @@
-First README
-Test Slack & Github
-Test rename repository
+Side Project Make (KilHyun-Kim, KIMJINMINININN)
