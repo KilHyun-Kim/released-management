@@ -2,11 +2,13 @@
 import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'styled-normalize';
 
-export const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   ${normalize}
 
   html,
   body {
+    width: 375px;
+    height: 650px;
     overflow: hidden;
   }
 
@@ -14,3 +16,5 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 `;
+
+export default GlobalStyle;

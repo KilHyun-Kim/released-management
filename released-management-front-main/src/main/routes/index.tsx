@@ -7,7 +7,7 @@ import Choice from '../../library/components/Choice';
 import Main from '../../library/components/Main';
 
 //Router Test Code
-const Root = () => (
+const Root: React.FC = () => (
   <Router>
     <div>
       <nav>
@@ -19,13 +19,13 @@ const Root = () => (
             <Link to="/Login">Login</Link>
           </li>
           <li>
-            <Link to="/MyPage">MyPage</Link>
-          </li>
-          <li>
             <Link to="/Choice">Choice</Link>
           </li>
           <li>
             <Link to="/Main">Main</Link>
+          </li>
+          <li>
+            <Link to="/MyPage">MyPage</Link>
           </li>
         </ul>
       </nav>
