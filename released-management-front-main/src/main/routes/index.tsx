@@ -1,35 +1,36 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import About from '../../library/components/About';
-import Login from '../../library/components/Login';
-import MyPage from '../../library/components/MyPage';
-import Choice from '../../library/components/Choice';
-import Main from '../../library/components/Main';
+import About from '../../library/constants/About';
+import Login from '../../library/constants/Login';
+import MyPage from '../../library/constants/MyPage';
+import Choice from '../../library/constants/Choice';
+import Main from '../../library/constants/Main';
+
+import styled, { css } from 'styled-components';
 
 //Router Test Code
 const Root: React.FC = () => (
   <Router>
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/About">About</Link>
-          </li>
-          <li>
-            <Link to="/Login">Login</Link>
-          </li>
-          <li>
-            <Link to="/Choice">Choice</Link>
-          </li>
-          <li>
-            <Link to="/Main">Main</Link>
-          </li>
-          <li>
-            <Link to="/MyPage">MyPage</Link>
-          </li>
-        </ul>
-      </nav>
-
+    <nav>
+      <ul>
+        <li>
+          <Link to="/About">About</Link>
+        </li>
+        <li>
+          <Link to="/Login">Login</Link>
+        </li>
+        <li>
+          <Link to="/Choice">Choice</Link>
+        </li>
+        <li>
+          <Link to="/Main">Main</Link>
+        </li>
+        <li>
+          <Link to="/MyPage">MyPage</Link>
+        </li>
+      </ul>
+    </nav>
+    <main style={styles.container}>
       <Route path="/About">
         <About />
       </Route>
@@ -45,8 +46,23 @@ const Root: React.FC = () => (
       <Route path="/Main">
         <Main />
       </Route>
-    </div>
+    </main>
   </Router>
 );
+
+const styles: { [key: string]: React.CSSProperties } = {
+  container: {
+    width: '100%',
+    height: '50%',
+    position: 'relative',
+    display: 'flex',
+    top: '20px',
+    justifyContent: 'center',
+  },
+  in_div: {
+    width: 70,
+    height: 100,
+  },
+} as const;
 
 export default Root;

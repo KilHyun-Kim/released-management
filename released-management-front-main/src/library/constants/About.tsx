@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import Button from './main/Button';
-import MediumButton from './main/MediumButton';
+import MediumButton from '../components/main/MediumButton';
 
 class About extends Component {
   render() {
