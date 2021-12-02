@@ -10,6 +10,7 @@ const InputBox = styled.input`
   display: flex;
   margin-top: 20px;
   box-shadow: 0px 4px rgba(0, 0, 0, 0.25);
+  margin-left: 120px;
   ::placeholder {
     color: #000000 Solid;
     font-family: Roboto;

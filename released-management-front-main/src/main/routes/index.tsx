@@ -25,17 +25,22 @@ const Root: React.FC = () => (
         <li>
           <Link to="/Main">Main</Link>
         </li>
-        <li>
+        {/* <li>
           <Link to="/MyPage">MyPage</Link>
-        </li>
+        </li> */}
       </ul>
     </nav>
     <main style={styles.container}>
+    {/* <main> */}
       <Route path="/About">
-        <About />
+        <div style={styles.about}>
+          <About />
+        </div>
       </Route>
       <Route path="/Login">
-        <Login />
+        <div style={styles.about}>
+          <Login />
+        </div>
       </Route>
       <Route path="/MyPage">
         <MyPage />
@@ -44,7 +49,9 @@ const Root: React.FC = () => (
         <Choice />
       </Route>
       <Route path="/Main">
-        <Main />
+        <div style={styles.main}>
+          <Main />
+        </div>
       </Route>
     </main>
   </Router>
@@ -53,16 +60,25 @@ const Root: React.FC = () => (
 const styles: { [key: string]: React.CSSProperties } = {
   container: {
     width: '100%',
-    height: '50%',
+    height: '80%',
     position: 'relative',
+    display: 'block',
+    // top: '20px',
+    // marginLeft: '430px'
+  },
+  about : {
+    height: '100%',
     display: 'flex',
+    alignItems : 'center',
+    justifyContent : 'center',
+  },
+  main : {
+    height: '100%',
+    display: 'block',
+    position: 'relative',
     top: '20px',
-    justifyContent: 'center',
-  },
-  in_div: {
-    width: 70,
-    height: 100,
-  },
+    // marginLeft: '35%',
+  }
 } as const;
 
 export default Root;

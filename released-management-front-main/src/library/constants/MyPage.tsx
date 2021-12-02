@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class MyPage extends Component {
   render() {
-    return <div>MyPage Page입니다.</div>;
+    return <div>MyPage 입니다(준비중입니다)</div>;
   }
 }
 
