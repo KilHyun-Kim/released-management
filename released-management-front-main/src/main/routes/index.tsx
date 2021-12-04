@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import About from '../../library/constants/About';
-import Login from '../../library/constants/Login';
-import MyPage from '../../library/constants/MyPage';
-import Choice from '../../library/constants/Choice';
-import Main from '../../library/constants/Main';
+import About from '../../library/pages/About';
+import Login from '../../library/pages/Login';
+import MyPage from '../../library/pages/MyPage';
+import Choice from '../../library/pages/Choice';
+import Main from '../../library/pages/Main';
 
 import styled, { css } from 'styled-components';
 
@@ -31,7 +31,7 @@ const Root: React.FC = () => (
       </ul>
     </nav>
     <main style={styles.container}>
-    {/* <main> */}
+      {/* <main> */}
       <Route path="/About">
         <div style={styles.about}>
           <About />
@@ -66,19 +66,19 @@ const styles: { [key: string]: React.CSSProperties } = {
     // top: '20px',
     // marginLeft: '430px'
   },
-  about : {
+  about: {
     height: '100%',
     display: 'flex',
-    alignItems : 'center',
-    justifyContent : 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  main : {
+  main: {
     height: '100%',
     display: 'block',
     position: 'relative',
     top: '20px',
     // marginLeft: '35%',
-  }
+  },
 } as const;
 
 export default Root;
