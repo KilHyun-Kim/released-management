@@ -64,8 +64,6 @@ const Minicircle = styled.div`
   // align-items: center;
 `;
 
-
-
 class Main extends Component {
   render() {
     const circle_count = ['React', 'Vue', 'Node', 'Python', 'Go'];
