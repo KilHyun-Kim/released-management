@@ -1,32 +1,40 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {data, visible, setTech, fetchList} from '../reducers/tech/techSlice'
 import InputBox from '../components/main/InputBox';
 import Circle from '../components/main/Circle';
 import styled, { css } from 'styled-components';
 
-class Choice extends React.Component {
-  render() {
+export function Choice(){
+  const data_selector = useSelector(data);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchList({name: "React"}));
+  }, [dispatch]);
+  // ** 
+  console.log("data_selector : ", data_selector)
     //temp count
-    const circle_count = [['React', 'Vue', 'Angular'], ['Spring', 'Go', 'Node'], ['Figma', 'Trello', 'Jira']];
-    return (
-      <div style={styles.root}>
-        <div style={styles.wrap}>
-          <InputBox placeholder="Search Input" />
-        </div>
-        <div style={styles.container}>
-          {circle_count.map((value, index1) => (
-            <div key={index1} style={styles.circlewrap}>
-              {value.map((value1, index2) => (
-                <div key={index2}>
-                  {index2 == 1 ? <Circle style={styles.marginside}/> : <Circle />}
-                  <div>{value1}</div>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
+  const circle_count = [['React', 'Vue', 'Angular'], ['Spring', 'Go', 'Node'], ['Figma', 'Trello', 'Jira']];
+  return (
+    <div style={styles.root}>
+      <div style={styles.wrap}>
+        <InputBox placeholder="Search Input" />
       </div>
-    );
-  }
+      <div style={styles.container}>
+        {circle_count.map((value, index1) => (
+          <div key={index1} style={styles.circlewrap}>
+            {value.map((value1, index2) => (
+              <div key={index2}>
+                {index2 == 1 ? <Circle style={styles.marginside}/> : <Circle />}
+                <div>{value1}</div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 const styles: { [key: string]: React.CSSProperties} = {

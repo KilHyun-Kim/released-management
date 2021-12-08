@@ -16,7 +16,7 @@ const LargeButton = styled.button`
   position: realtive;
   margin-top: 10px;
   &:hover {
-    background-color: #;
+    /* background-color: #; */
     // color: #ffffff;
     // border-color: #ffffff;
   }

@@ -14,7 +14,7 @@ const MediumButton = styled.button`
   align-items: center;
   background-color: #ffffff;
   &:hover {
-    background-color: #;
+    /* background-color: #; */
     // color: #ffffff;
     // border-color: #ffffff;
   }

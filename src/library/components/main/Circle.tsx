@@ -9,7 +9,6 @@ const Circle = styled.div`
   background-color: #c4c4c4;
   text-align: center;
   display: flex;
-
   // justify-content: center;
   // align-items: center;
 `;

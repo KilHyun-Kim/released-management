@@ -6,12 +6,13 @@ import {
 } from '@reduxjs/toolkit';
 import { stat } from 'fs';
 import * as api from 'library/api/exApi';
+import { RootState } from 'main/store/createStore';
 
 const name = 'techSlice';
 
 export const fetchList = createAsyncThunk(
   `${name}/fetchList`,
-  async({number, name}: {number: number; name: number}, thunkAPI) => {
+  async({name}: {name: string}, thunkAPI) => {
     try { 
       return (await api.getData());
     } catch(error: any){
@@ -22,12 +23,12 @@ export const fetchList = createAsyncThunk(
 
 export interface techList {
   visible: boolean;
-  data: { name: string };
+  data: Array<any>;
 }
 
 const initialState: techList = {
   visible: false,
-  data: { name: 'React' },
+  data: [],
 };
 
 export const techSlice = createSlice({
@@ -37,9 +38,9 @@ export const techSlice = createSlice({
     setTech: (
       state,
       //payloadaction의 <>값은 임시로 만들어둔것
-      action: PayloadAction<{ visible: false; data: string }>,
+      action: PayloadAction<{ name: string }>,
     ) => {
-      state.data.name = action.payload.data;
+      state.data.push(action.payload);
     },
   },
   extraReducers: {
@@ -58,12 +59,18 @@ export const techSlice = createSlice({
     ) => {
       //실패
       state.visible = true;
-      state.data.name = action.payload.data.name;
+      state.data= action.payload.data;
     }
   }
 });
 
+const listState = (state: RootState) => state.techSlice.data
+
+
 const { actions, reducer } = techSlice;
 export const { setTech } = actions;
+
+export const data = (state: RootState) => state.techSlice.data;
+export const visible = (state: RootState) => state.techSlice.visible;
 
 export default reducer;

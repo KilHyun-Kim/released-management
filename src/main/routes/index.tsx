@@ -9,8 +9,9 @@ import Main from '../../library/pages/Main';
 import styled, { css } from 'styled-components';
 
 //Router Test Code
-const Root: React.FC = () => (
-  <Router>
+function Root(){
+  return (
+    <Router>
     <nav>
       <ul>
         <li>
@@ -55,7 +56,8 @@ const Root: React.FC = () => (
       </Route>
     </main>
   </Router>
-);
+  )
+}
 
 const styles: { [key: string]: React.CSSProperties } = {
   container: {
