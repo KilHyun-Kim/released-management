@@ -1,6 +1,8 @@
 import Circle from 'library/components/main/Circle';
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import {data, visible, setTech, fetchList, getMainFilter} from '../reducers/tech/techSlice'
 
 const Radiusbox = styled.div`
   width: 334px;
@@ -64,40 +66,53 @@ const Minicircle = styled.div`
   // align-items: center;
 `;
 
-class Main extends Component {
-  render() {
-    const circle_count = ['React', 'Vue', 'Node', 'Python', 'Go'];
-    const radiusbox = [1, 2, 3, 4]
-    return (
-      <>
-        <div style={styles.container}>
-          {circle_count.map((value, index) => (
-            <div key={index} style={styles.circlediv}>
-              <Circle />
-              <div>{value}</div>
+
+// class Main extends Component {
+export function Main(){
+  const dataSelect: Array<any> = useSelector(data);
+  const filterlist: Array<any> = useSelector(getMainFilter)
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchList({name: "React"}));
+  }, [dispatch])
+
+  console.log("dataSelect : ", dataSelect)
+  console.log("filterlist : ", filterlist)
+  const circle_count = ['React', 'Vue', 'Node', 'Python', 'Go'];
+  const radiusbox = [1, 2, 3, 4]
+
+  return (
+    <>
+      <div style={styles.container}>
+        {dataSelect.map((value, index) => (
+          <div key={index} style={styles.circlediv}>
+            <Circle />
+            <div>{value["name"]}</div>
+          </div>
+        ))}
+      </div>
+      <Radiusbox>
+        <div style={styles.boxInDiv}>
+          {dataSelect.map((value, index) => (
+            <div key={index} style={styles.minicirclediv}>
+              <Minicircle />
+              <div>{value["name"]}</div>
             </div>
           ))}
         </div>
-        <Radiusbox>
-          {circle_count.map((value, index) => (
-            <div key={index} style={styles.minicirclediv}>
-              <Minicircle />
-              <div>{value}</div>
-            </div>
-          ))}
-        </Radiusbox>
-        <Maindiv>
-            {
-              radiusbox.map((value) => (
-                <div key={value} style={styles.radiusbox}>
-                  <Bigradiusbox />
-                </div>
-              ))
-            }
-        </Maindiv>
-      </>
-    );
-  }
+      </Radiusbox>
+      <Maindiv>
+          {
+            radiusbox.map((value) => (
+              <div key={value} style={styles.radiusbox}>
+                <Bigradiusbox />
+              </div>
+            ))
+          }
+      </Maindiv>
+    </>
+  );
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
@@ -105,11 +120,13 @@ const styles: { [key: string]: React.CSSProperties } = {
     width: '100%',
   },
   container: {
-    height: '120px',
+    height: '135px',
+    width: '400px',
     position: 'relative',
     display: 'flex',
     // top: '20px',
     marginLeft: '38%',
+    overflow: 'auto',
   },
   circlediv: {
     width: '70px',
@@ -126,6 +143,13 @@ const styles: { [key: string]: React.CSSProperties } = {
   radiusbox:{
     position: 'relative',
     marginTop: '25px',
+  },
+  boxInDiv:{
+    width: '310px',
+    height: '116px',
+    position: 'relative',
+    display: 'flex',
+    overflow: 'auto',
   }
 } as const;
 
