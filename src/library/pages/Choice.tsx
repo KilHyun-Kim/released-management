@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {data, visible, setTech, fetchList, getMainFilter} from '../reducers/tech/techSlice'
 import InputBox from '../components/main/InputBox';
 import Circle from '../components/main/Circle';
+import { request } from '../../main/axios/Http';
 import styled, { css } from 'styled-components';
 
 export function Choice(){
@@ -13,7 +14,13 @@ export function Choice(){
   useEffect(() => {
     dispatch(fetchList({name: "React"}));
   }, [dispatch]);
-
+  useEffect(() => {
+    async function fetchTech() {
+      const data= await request("GET", "/techs");
+      console.log(data);
+    }
+    fetchTech();
+  },[])
   // ** 
   //temp count
   // const circle_count = [['React', 'Vue', 'Angular'], ['Spring', 'Go', 'Node'], ['Figma', 'Trello', 'Jira']];
