@@ -5,6 +5,7 @@ import Login from '../../library/pages/Login';
 import MyPage from '../../library/pages/MyPage';
 import Choice from '../../library/pages/Choice';
 import Main from '../../library/pages/Main';
+import Admin from 'library/pages/Admin';
 
 import styled, { css } from 'styled-components';
 
@@ -25,6 +26,9 @@ function Root(){
         </li>
         <li>
           <Link to="/Main">Main</Link>
+        </li>
+        <li>
+          <Link to="/Admin">Admin</Link>
         </li>
         {/* <li>
           <Link to="/MyPage">MyPage</Link>
@@ -52,6 +56,11 @@ function Root(){
       <Route path="/Main">
         <div style={styles.main}>
           <Main />
+        </div>
+      </Route>
+      <Route path="/Admin">
+        <div style={styles.main}>
+          <Admin />
         </div>
       </Route>
     </main>
