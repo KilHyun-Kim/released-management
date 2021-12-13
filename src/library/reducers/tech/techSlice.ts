@@ -4,7 +4,6 @@ import {
   createAsyncThunk,
   createSelector,
 } from '@reduxjs/toolkit';
-import { stat } from 'fs';
 import * as api from 'library/api/exApi';
 import { RootState } from 'main/store/createStore';
 

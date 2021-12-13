@@ -16,13 +16,13 @@ export function Choice(){
   useEffect(() => {
     dispatch(fetchList({name: "React"}));
   }, [dispatch]);
-  useEffect(() => {
+  /* useEffect(() => {
     async function fetchTech() {
       const data= await request("GET", "/techs");
       console.log(data);
     }
     fetchTech();
-  },[])
+  },[]) */
   // ** 
   //temp count
   // const circle_count = [['React', 'Vue', 'Angular'], ['Spring', 'Go', 'Node'], ['Figma', 'Trello', 'Jira']];
@@ -30,7 +30,7 @@ export function Choice(){
     <div style={styles.root}>
       <div style={styles.wrap}>
         <Inputsuggest />
-        <InputBox placeholder="Search Input" />
+        {/* <InputBox placeholder="Search Input" /> */}
       </div>
       <div style={styles.container}>
         {filterlist.map((value, index1) => (
