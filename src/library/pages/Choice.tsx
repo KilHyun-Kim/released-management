@@ -2,9 +2,11 @@ import React, { Component, useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {data, visible, setTech, fetchList, getMainFilter} from '../reducers/tech/techSlice'
 import InputBox from '../components/main/InputBox';
+import Inputsuggest from '../components/main/autosuggets/Inputsuggest';
 import Circle from '../components/main/Circle';
 import { request } from '../../main/axios/Http';
 import styled, { css } from 'styled-components';
+
 
 export function Choice(){
   const data_selector: Array<any> = useSelector(data);
@@ -27,6 +29,7 @@ export function Choice(){
   return (
     <div style={styles.root}>
       <div style={styles.wrap}>
+        <Inputsuggest />
         <InputBox placeholder="Search Input" />
       </div>
       <div style={styles.container}>

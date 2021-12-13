@@ -79,7 +79,7 @@ export function Main(){
 
   console.log("dataSelect : ", dataSelect)
   console.log("filterlist : ", filterlist)
-  const circle_count = ['React', 'Vue', 'Node', 'Python', 'Go'];
+  // const circle_count = ['React', 'Vue', 'Node', 'Python', 'Go'];
   const radiusbox = [1, 2, 3, 4]
 
   return (
