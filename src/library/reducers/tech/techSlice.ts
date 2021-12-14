@@ -23,11 +23,13 @@ export const fetchList = createAsyncThunk(
 export interface techList {
   visible: boolean;
   data: Array<any>;
+  selectData: Array<any>;
 }
 
 const initialState: techList = {
   visible: false,
-  data: [],
+  data: [], //api를 사용해서 가져올 데이터
+  selectData: [], //choice page에서 선택한 데이터
 };
 
 export const techSlice = createSlice({
@@ -63,35 +65,36 @@ export const techSlice = createSlice({
   }
 });
 
-const listState = (state: RootState) => state.techSlice.data
+// export const listState = (state: RootState) => state.techSlice.data
 
-export function division(n:any, arr:Array<any>) {
-  const arr_temp = JSON.parse(JSON.stringify(arr));
-  const len = arr_temp.length;
-  const cnt = Math.floor(len / n) + (Math.floor(len % n) > 0 ? 1 : 0);
-  const tmp = [];
+// export function division(n:any, arr:Array<any>) {
+//   const arr_temp = JSON.parse(JSON.stringify(arr));
+//   const len = arr_temp.length;
+//   const cnt = Math.floor(len / n) + (Math.floor(len % n) > 0 ? 1 : 0);
+//   const tmp = [];
 
-  if(arr_temp.length > 0){
-    arr_temp.map((item : any, index : number) => {
-      arr_temp[index] = item
-    })
+//   if(arr_temp.length > 0){
+//     arr_temp.map((item : any, index : number) => {
+//       arr_temp[index] = item
+//     })
 
-    for (let i = 0; i < cnt; i++) {
-      tmp.push(arr_temp.splice(0, n));
-    }
-  }
+//     for (let i = 0; i < cnt; i++) {
+//       tmp.push(arr_temp.splice(0, n));
+//     }
+//   }
   
-  return tmp;
-}
+//   return tmp;
+// }
 
-export const getMainFilter = createSelector(listState, data => {
-  return division(3, data)
-});
+// export const getMainFilter = createSelector(listState, data => {
+//   return division(3, data)
+// });
 
 const { actions, reducer } = techSlice;
 export const { setTech } = actions;
 
 export const data = (state: RootState) => state.techSlice.data;
+export const selectData = (state: RootState) => state.techSlice.selectData;
 export const visible = (state: RootState) => state.techSlice.visible;
 
 export default reducer;
