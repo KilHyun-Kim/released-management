@@ -24,12 +24,14 @@ export interface techList {
   visible: boolean;
   data: Array<any>;
   selectData: Array<any>;
+  filterData: any;
 }
 
 const initialState: techList = {
   visible: false,
   data: [], //api를 사용해서 가져올 데이터
   selectData: [], //choice page에서 선택한 데이터
+  filterData: [], //choice page에서 filter한 데이터 -> choice 페이지에서 사용하기
 };
 
 export const techSlice = createSlice({
@@ -43,6 +45,18 @@ export const techSlice = createSlice({
     ) => {
       state.data.push(action.payload);
     },
+    setSelect: (
+      state,
+      action: PayloadAction<Array<any>>,
+    ) => {
+      state.selectData.push(action.payload)
+    },
+    setFilter: (
+      state,
+      action: PayloadAction<Array<any>>,
+    ) => {
+      state.filterData = action.payload
+    }
   },
   extraReducers: {
     [fetchList.pending.type]: (state) => {
@@ -65,36 +79,37 @@ export const techSlice = createSlice({
   }
 });
 
-// export const listState = (state: RootState) => state.techSlice.data
+export const listState = (state: RootState) => state.techSlice.data
 
-// export function division(n:any, arr:Array<any>) {
-//   const arr_temp = JSON.parse(JSON.stringify(arr));
-//   const len = arr_temp.length;
-//   const cnt = Math.floor(len / n) + (Math.floor(len % n) > 0 ? 1 : 0);
-//   const tmp = [];
+export function division(n:any, arr:Array<any>) {
+  const arr_temp = JSON.parse(JSON.stringify(arr));
+  const len = arr_temp.length;
+  const cnt = Math.floor(len / n) + (Math.floor(len % n) > 0 ? 1 : 0);
+  const tmp = [];
 
-//   if(arr_temp.length > 0){
-//     arr_temp.map((item : any, index : number) => {
-//       arr_temp[index] = item
-//     })
+  if(arr_temp.length > 0){
+    arr_temp.map((item : any, index : number) => {
+      arr_temp[index] = item
+    })
 
-//     for (let i = 0; i < cnt; i++) {
-//       tmp.push(arr_temp.splice(0, n));
-//     }
-//   }
+    for (let i = 0; i < cnt; i++) {
+      tmp.push(arr_temp.splice(0, n));
+    }
+  }
   
-//   return tmp;
-// }
+  return tmp;
+}
 
-// export const getMainFilter = createSelector(listState, data => {
-//   return division(3, data)
-// });
+export const getMainFilter = createSelector(listState, data => {
+  return division(3, data)
+});
 
 const { actions, reducer } = techSlice;
-export const { setTech } = actions;
+export const { setTech, setSelect, setFilter } = actions;
 
 export const data = (state: RootState) => state.techSlice.data;
 export const selectData = (state: RootState) => state.techSlice.selectData;
+export const filterData = (state: RootState) => state.techSlice.filterData;
 export const visible = (state: RootState) => state.techSlice.visible;
 
 export default reducer;

@@ -1,39 +1,40 @@
 import React, { Component, useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {data, visible, setTech, fetchList, selectData} from '../reducers/tech/techSlice'
+import {data, selectData, filterData} from '../reducers/tech/techSlice'
+import {setTech, setFilter, fetchList, getMainFilter} from '../reducers/tech/techSlice'
 import Circle from '../components/main/Circle';
 import { request } from '../../main/axios/Http';
 import styled, { css } from 'styled-components';
 import ComboBox from '../components/main/mul/ComboBox'
 import { createSelector } from '@reduxjs/toolkit';
 
-function division(n:any, arr:Array<any>) {
-    const arr_temp = JSON.parse(JSON.stringify(arr));
-    const len = arr_temp.length;
-    const cnt = Math.floor(len / n) + (Math.floor(len % n) > 0 ? 1 : 0);
-    const tmp = [];
+// function division(n:any, arr:Array<any>) {
+//     const arr_temp = JSON.parse(JSON.stringify(arr));
+//     const len = arr_temp.length;
+//     const cnt = Math.floor(len / n) + (Math.floor(len % n) > 0 ? 1 : 0);
+//     const tmp = [];
   
-    if(arr_temp.length > 0){
-      arr_temp.map((item : any, index : number) => {
-        arr_temp[index] = item
-      })
+//     if(arr_temp.length > 0){
+//       arr_temp.map((item : any, index : number) => {
+//         arr_temp[index] = item
+//       })
   
-      for (let i = 0; i < cnt; i++) {
-        tmp.push(arr_temp.splice(0, n));
-      }
-    }
+//       for (let i = 0; i < cnt; i++) {
+//         tmp.push(arr_temp.splice(0, n));
+//       }
+//     }
     
-    return tmp;
-  }
+//     return tmp;
+//   }
 
-const getMainFilter = createSelector(selectData, data => {
-  return division(3, data)
-});
+// const getMainFilter = createSelector(selectData, data => {
+//   return division(3, data)
+// });
 
 export function Choice(){
   const data_selector: Array<any> = useSelector(data);
   const filterlist: Array<any> = useSelector(getMainFilter)
-  
+  const filterlist1: any = useSelector(filterData)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchList({name: "React"}));
@@ -54,7 +55,7 @@ export function Choice(){
         <ComboBox data={data_selector}/>
       </div>
       <div style={styles.container}>
-        {filterlist.map((value, index1) => (
+        {filterlist.map((value : any, index1: any) => (
           <div key={index1} style={styles.circlewrap}>
             {value.map((value1 : any, index2: number) => (
               <div key={index2}>

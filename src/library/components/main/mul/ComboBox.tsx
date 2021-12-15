@@ -3,16 +3,28 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useState, useEffect} from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector , useDispatch} from 'react-redux';
 import { RootState } from 'main/store/createStore';
+import {data, selectData, filterData} from '../../../reducers/tech/techSlice'
+import {setTech, setSelect, setFilter, fetchList, getMainFilter} from '../../../reducers/tech/techSlice'
+
 
 export default function ComboBox(props:any) {
-  const [filter, setFilter] = useState<any>("");
+  const [tempfilter, setTempfilter] = useState<any>("");
   const dataList = props.data;
-
+  const dispatch = useDispatch();
+  const temp_obj:any = []
   useEffect(() => {
-    console.log("filter : ", filter)
-  },[filter])
+    //setFilter로 state의 filter 데이터를 변경시키는중
+    //변경하고나서 해당하는 데이터를 Choice에서 사용해주면 된다.
+    //filterData를 사용하면 되겟군
+    dataList.forEach((item:any) => {
+      if(item.name == tempfilter){
+        temp_obj.push(item);
+      }
+    })
+    dispatch(setFilter(temp_obj))
+  },[tempfilter])
 
   function onClick(event : any){
     console.log("click : ", event)
@@ -32,7 +44,7 @@ export default function ComboBox(props:any) {
           }
         }}
         onChange={(event:any) => {
-          setFilter(event.target.textContent)
+          setTempfilter(event.target.textContent)
         }}
         renderInput={(params) => <TextField {...params} label="Tech" />}
       />
