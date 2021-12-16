@@ -2,7 +2,7 @@ import Circle from 'library/components/main/Circle';
 import React, { Component, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import {data, visible, setTech, fetchList, getMainFilter} from '../reducers/tech/techSlice'
+import {data, visible, setTech, fetchList} from '../reducers/tech/techSlice'
 
 const Radiusbox = styled.div`
   width: 334px;
@@ -70,7 +70,6 @@ const Minicircle = styled.div`
 // class Main extends Component {
 export function Main(){
   const dataSelect: Array<any> = useSelector(data);
-  const filterlist: Array<any> = useSelector(getMainFilter)
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -78,7 +77,6 @@ export function Main(){
   }, [dispatch])
 
   console.log("dataSelect : ", dataSelect)
-  console.log("filterlist : ", filterlist)
   // const circle_count = ['React', 'Vue', 'Node', 'Python', 'Go'];
   const radiusbox = [1, 2, 3, 4]
 

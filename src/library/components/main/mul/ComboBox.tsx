@@ -6,8 +6,7 @@ import { useState, useEffect} from 'react';
 import { useSelector , useDispatch} from 'react-redux';
 import { RootState } from 'main/store/createStore';
 import {data, selectData, filterData} from '../../../reducers/tech/techSlice'
-import {setTech, setSelect, setFilter, fetchList, getMainFilter} from '../../../reducers/tech/techSlice'
-
+// import {setTech, setSelect, setFilter, fetchList} from '../../../reducers/tech/techSlice'
 
 export default function ComboBox(props:any) {
   const [tempfilter, setTempfilter] = useState<any>("");
@@ -23,7 +22,7 @@ export default function ComboBox(props:any) {
         temp_obj.push(item);
       }
     })
-    dispatch(setFilter(temp_obj))
+    // dispatch(setFilter(temp_obj))
   },[tempfilter])
 
   function onClick(event : any){
