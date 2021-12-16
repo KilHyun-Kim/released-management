@@ -10,6 +10,8 @@ import InputBox from '../components/main/InputBox'
 // import ComboBox from '../components/main/mul/ComboBox'
 import { createSelector } from '@reduxjs/toolkit';
 import ClearIcon from '@mui/icons-material/Clear';
+import Loading from '../components/main/loading/loading'
+import Button from '@mui/material/Button';
 
 
 function division(n:any, arr:Array<any>) {
@@ -46,6 +48,12 @@ export function Choice(){
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchList({name: "React"}));
+    // input에서 esc 키 누르면 초기화 기능
+    window.addEventListener("keydown", function(event){
+      if(event.key == "Escape"){
+        onClick()
+      }
+    })
   }, []);
 
   useEffect(() => {
@@ -80,7 +88,7 @@ export function Choice(){
     // console.log("inputdata : ", inputdata)
   }, [inputdata])
 
-  const onClick = ((event: any) => {
+  const onClick = (() => {
     console.log("onClick @@@@@@@@ : ", inputref);
     if(inputref.current){
       inputref.current.firstChild.value = '';
@@ -103,6 +111,7 @@ export function Choice(){
   // const circle_count = [['React', 'Vue', 'Angular'], ['Spring', 'Go', 'Node'], ['Figma', 'Trello', 'Jira']];
   return (
     <div style={styles.root}>
+      {/* <Loading /> */}
       <div style={styles.wrap}>
         <MulTextField style={styles.mulTextField}  
           onChange={onChange}
@@ -115,13 +124,14 @@ export function Choice(){
           <div key={index1} style={styles.circlewrap}>
             {value.map((value1 : any, index2: number) => (
               <div key={index2}>
-                {index2 == 1 ? <Circle style={styles.marginside}/> : <Circle />}
+                {index2 == 1 ? <Circle style={styles.cirCle}/> : <Circle style={styles.cursor}/>}
                 <div>{value1["name"]}</div>
               </div>
             ))}
           </div>
         ))}
       </div>
+      <Button variant="outlined" style={styles.choicebButton}>선택 완료</Button>
     </div>
   );
 }
@@ -157,9 +167,10 @@ const styles: { [key: string]: React.CSSProperties} = {
     position: 'relative',
     display: 'flex',
   },
-  marginside:{
+  cirCle:{
     marginLeft: '40px',
     marginRight: '40px',
+    cursor: 'pointer'
   },
   mulTextField:{
     width: '400px',
@@ -172,6 +183,16 @@ const styles: { [key: string]: React.CSSProperties} = {
     right: '165px',
     top: '10px',
     cursor: 'pointer',
+  },
+  choicebButton: {
+    position: 'relative',
+    width: '305px',
+    height: '75px',
+    top: '50px',
+    right: '20px'
+  },
+  cursor:{
+    cursor: 'pointer'
   }
 } as const;
 
