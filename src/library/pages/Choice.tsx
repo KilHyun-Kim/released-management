@@ -51,7 +51,13 @@ export function Choice(){
     // input에서 esc 키 누르면 초기화 기능
     window.addEventListener("keydown", function(event){
       if(event.key == "Escape"){
-        onClick()
+        if(inputref.current){
+          inputref.current.firstChild.value = '';
+          setInputdata('');
+          if(clearicon.current){
+            clearicon.current.style.display = 'none'
+          }
+        }
       }
     })
   }, []);
@@ -88,16 +94,26 @@ export function Choice(){
     // console.log("inputdata : ", inputdata)
   }, [inputdata])
 
-  const onClick = (() => {
-    console.log("onClick @@@@@@@@ : ", inputref);
-    if(inputref.current){
-      inputref.current.firstChild.value = '';
-      setInputdata('');
-      if(clearicon.current){
-        clearicon.current.style.display = 'none'
-      }
+  const onClick = ((event?:any) => {
+    let nodename : any = null
+    event == null ? nodename = null: nodename = event.target.nodeName
+    switch(nodename){
+      case 'DIV':
+        break
+      case 'svg':
+        if(inputref.current){
+          inputref.current.firstChild.value = '';
+          setInputdata('');
+          if(clearicon.current){
+            clearicon.current.style.display = 'none'
+          }
+        }
+        break
+      default :
+        break
     }
   })
+
 
   /* useEffect(() => {
     async function fetchTech() {
@@ -123,8 +139,8 @@ export function Choice(){
         {filterlist.map((value : any, index1: any) => (
           <div key={index1} style={styles.circlewrap}>
             {value.map((value1 : any, index2: number) => (
-              <div key={index2}>
-                {index2 == 1 ? <Circle style={styles.cirCle}/> : <Circle style={styles.cursor}/>}
+              <div key={index2} >
+                {index2 == 1 ? <Circle style={styles.cirCle} onClick={onClick} /> : <Circle style={styles.cursor} onClick={onClick}/>}
                 <div>{value1["name"]}</div>
               </div>
             ))}
