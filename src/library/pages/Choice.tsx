@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect, useCallback, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {data, selectData, filterData} from '../reducers/tech/techSlice'
-import {setTech, setFilter, fetchList} from '../reducers/tech/techSlice'
+import {setTech, setFilter, fetchList, addFilter} from '../reducers/tech/techSlice'
 import Circle from '../components/main/Circle';
 import { request } from '../../main/axios/Http';
 import styled, { css } from 'styled-components';
@@ -46,8 +46,11 @@ export function Choice(){
   // Circle에 filter해서 나타낼때 사용하는 변수
   const filterlist: any = useSelector(getMainFilters)
   const dispatch = useDispatch();
+
+  //초기 세팅
   useEffect(() => {
     dispatch(fetchList({name: "React"}));
+    dispatch(addFilter(false));
     // input에서 esc 키 누르면 초기화 기능
     window.addEventListener("keydown", function(event){
       if(event.key == "Escape"){
@@ -63,7 +66,6 @@ export function Choice(){
   }, []);
 
   useEffect(() => {
-
     const temp_list = JSON.parse(JSON.stringify(data_selector))
     const f_list:any = filterFunc(temp_list)
     if(f_list.length == 0){
@@ -74,6 +76,7 @@ export function Choice(){
     }
   }, [inputdata])
 
+  //inputdata 값에 따른 데이터 필터 함수
   function filterFunc(props: Array<any>){
     if(!props) return null
     const temp_list:any = []
@@ -85,21 +88,25 @@ export function Choice(){
     return temp_list
   }
 
+
+  //input 값 변경됬을때
   const onChange = useCallback((event: any) => {
     const event_value = event.target.value
     if(clearicon.current){
       event_value == '' ? clearicon.current.style.display = 'none' : clearicon.current.style.display = 'inline'
     }
     setInputdata(event_value)
-    // console.log("inputdata : ", inputdata)
   }, [inputdata])
 
   const onClick = ((event?:any) => {
     let nodename : any = null
     event == null ? nodename = null: nodename = event.target.nodeName
     switch(nodename){
+      //circle
       case 'DIV':
+        console.log("@@@@event: ", event.target.parentNode.innerText);
         break
+      //input X button
       case 'svg':
         if(inputref.current){
           inputref.current.firstChild.value = '';
@@ -139,8 +146,8 @@ export function Choice(){
         {filterlist.map((value : any, index1: any) => (
           <div key={index1} style={styles.circlewrap}>
             {value.map((value1 : any, index2: number) => (
-              <div key={index2} >
-                {index2 == 1 ? <Circle style={styles.cirCle} onClick={onClick} /> : <Circle style={styles.cursor} onClick={onClick}/>}
+              <div key={index2} style={styles.circlediv}>
+                {<Circle style={styles.cursor} onClick={onClick}/>}
                 <div>{value1["name"]}</div>
               </div>
             ))}
@@ -209,6 +216,9 @@ const styles: { [key: string]: React.CSSProperties} = {
   },
   cursor:{
     cursor: 'pointer'
+  },
+  circlediv:{
+    marginRight: '40px'
   }
 } as const;
 

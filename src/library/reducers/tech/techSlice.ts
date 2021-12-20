@@ -57,6 +57,14 @@ export const techSlice = createSlice({
     ) => {
       state.filterData = action.payload
     },
+    addFilter: (
+      state,
+      action: PayloadAction<any>,
+    ) => {
+      state.filterData.map((item : any) => {
+        item['flag'] = action.payload
+      })
+    },
   },
   extraReducers: {
     [fetchList.pending.type]: (state) => {
@@ -68,6 +76,12 @@ export const techSlice = createSlice({
       // state.visible = true;
       state.data = action.payload;
       state.filterData = action.payload;
+      //click data add 
+      // const apiData = JSON.parse(JSON.stringify(action.payload));
+      // apiData.map((item:any) => {
+      //   item['click'] = false;
+      // })
+      // state.filterData = apiData;
     },
     [fetchList.rejected.type]: (
       state,
@@ -84,7 +98,7 @@ export const techSlice = createSlice({
 export const listState = (state: RootState) => state.techSlice.data
 
 const { actions, reducer } = techSlice;
-export const { setTech, setSelect, setFilter} = actions;
+export const { setTech, setSelect, setFilter, addFilter} = actions;
 
 export const data = (state: RootState) => state.techSlice.data;
 export const selectData = (state: RootState) => state.techSlice.selectData;
