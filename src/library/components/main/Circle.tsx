@@ -21,15 +21,15 @@ export default Circle;
 // import React from 'react';
 
 // interface Circle{
-//   size : string;
+//   color : string;
 // }
 
-// const Circle = (size = '70px') => styled.div<Circle>`
-//   width: ${size}px;
-//   height: ${size}px;
+// const Circle = (color = '#c4c4c4') => styled.div<Circle>`
+//   width: 70px;
+//   height: 70px;
 //   position: relative;
 //   border-radius: 50%;
-//   background-color: #c4c4c4;
+//   background-color: ${color};
 //   text-align: center;
 //   display: flex;
 

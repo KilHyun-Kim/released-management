@@ -57,12 +57,19 @@ export const techSlice = createSlice({
     ) => {
       state.filterData = action.payload
     },
-    addFilter: (
+    modifyClick: (
       state,
       action: PayloadAction<any>,
     ) => {
+      state.data.map((item : any) => {
+        if(item.name == action.payload){
+          item.click = !item.click
+        }
+      })
       state.filterData.map((item : any) => {
-        item['flag'] = action.payload
+        if(item.name == action.payload){
+          item.click = !item.click
+        }
       })
     },
   },
@@ -74,14 +81,16 @@ export const techSlice = createSlice({
     [fetchList.fulfilled.type]: (state, action) => {
       //성공
       // state.visible = true;
-      state.data = action.payload;
-      state.filterData = action.payload;
       //click data add 
-      // const apiData = JSON.parse(JSON.stringify(action.payload));
-      // apiData.map((item:any) => {
-      //   item['click'] = false;
-      // })
-      // state.filterData = apiData;
+      const apiData = JSON.parse(JSON.stringify(action.payload));
+      apiData.map((item:any) => {
+        item['click'] = false;
+      })
+      // state.data = action.payload;
+      // state.filterData = action.payload;
+      
+      state.data = apiData;
+      state.filterData = apiData;
     },
     [fetchList.rejected.type]: (
       state,
@@ -98,7 +107,7 @@ export const techSlice = createSlice({
 export const listState = (state: RootState) => state.techSlice.data
 
 const { actions, reducer } = techSlice;
-export const { setTech, setSelect, setFilter, addFilter} = actions;
+export const { setTech, setSelect, setFilter, modifyClick} = actions;
 
 export const data = (state: RootState) => state.techSlice.data;
 export const selectData = (state: RootState) => state.techSlice.selectData;

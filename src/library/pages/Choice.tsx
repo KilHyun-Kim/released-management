@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect, useCallback, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {data, selectData, filterData} from '../reducers/tech/techSlice'
-import {setTech, setFilter, fetchList, addFilter} from '../reducers/tech/techSlice'
+import {setTech, setFilter, fetchList, modifyClick} from '../reducers/tech/techSlice'
 import Circle from '../components/main/Circle';
 import { request } from '../../main/axios/Http';
 import styled, { css } from 'styled-components';
@@ -50,7 +50,6 @@ export function Choice(){
   //초기 세팅
   useEffect(() => {
     dispatch(fetchList({name: "React"}));
-    dispatch(addFilter(false));
     // input에서 esc 키 누르면 초기화 기능
     window.addEventListener("keydown", function(event){
       if(event.key == "Escape"){
@@ -102,12 +101,15 @@ export function Choice(){
     let nodename : any = null
     event == null ? nodename = null: nodename = event.target.nodeName
     switch(nodename){
-      //circle
-      case 'DIV':
-        console.log("@@@@event: ", event.target.parentNode.innerText);
+      //circle click
+      case 'DIV': {
+        const selectItem : any = event.target.parentNode.innerText
+        //click of filterdata 
+        dispatch(modifyClick(selectItem))
         break
+      }
       //input X button
-      case 'svg':
+      case 'svg':{
         if(inputref.current){
           inputref.current.firstChild.value = '';
           setInputdata('');
@@ -116,8 +118,10 @@ export function Choice(){
           }
         }
         break
-      default :
+      }
+      default : {
         break
+      }
     }
   })
 
