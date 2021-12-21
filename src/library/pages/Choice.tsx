@@ -13,7 +13,6 @@ import ClearIcon from '@mui/icons-material/Clear';
 import Loading from '../components/main/loading/loading'
 import Button from '@mui/material/Button';
 
-
 function division(n:any, arr:Array<any>) {
     const arr_temp = JSON.parse(JSON.stringify(arr));
     const len = arr_temp.length;
@@ -87,7 +86,6 @@ export function Choice(){
     return temp_list
   }
 
-
   //input 값 변경됬을때
   const onChange = useCallback((event: any) => {
     const event_value = event.target.value
@@ -100,6 +98,11 @@ export function Choice(){
   const onClick = ((event?:any) => {
     let nodename : any = null
     event == null ? nodename = null: nodename = event.target.nodeName
+
+    async function PostItems(data: any){
+      await request("POST", "/selects", data);
+    }
+
     switch(nodename){
       //circle click
       case 'DIV': {
@@ -117,6 +120,15 @@ export function Choice(){
             clearicon.current.style.display = 'none'
           }
         }
+        break
+      }
+      //선택 완료 버튼 클릭
+      case 'BUTTON':{
+        const Items = data_selector.filter((item : any) => {
+          return item.click == true
+        })
+        console.log("ITEMS : ", Items)
+        // PostItems(Items)
         break
       }
       default : {
@@ -151,14 +163,14 @@ export function Choice(){
           <div key={index1} style={styles.circlewrap}>
             {value.map((value1 : any, index2: number) => (
               <div key={index2} style={styles.circlediv}>
-                {<Circle style={styles.cursor} onClick={onClick}/>}
+                {<Circle style={styles.cursor} onClick={onClick} props={value1["click"]} />}
                 <div>{value1["name"]}</div>
               </div>
             ))}
           </div>
         ))}
       </div>
-      <Button variant="outlined" style={styles.choicebButton}>선택 완료</Button>
+      <Button variant="outlined" style={styles.choicebButton} onClick={onClick}>선택 완료</Button>
     </div>
   );
 }
