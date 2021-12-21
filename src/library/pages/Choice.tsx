@@ -12,6 +12,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import ClearIcon from '@mui/icons-material/Clear';
 import Loading from '../components/main/loading/loading'
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 function division(n:any, arr:Array<any>) {
     const arr_temp = JSON.parse(JSON.stringify(arr));
@@ -150,7 +151,6 @@ export function Choice(){
   // const circle_count = [['React', 'Vue', 'Angular'], ['Spring', 'Go', 'Node'], ['Figma', 'Trello', 'Jira']];
   return (
     <div style={styles.root}>
-      {/* <Loading /> */}
       <div style={styles.wrap}>
         <MulTextField style={styles.mulTextField}  
           onChange={onChange}
@@ -170,7 +170,9 @@ export function Choice(){
           </div>
         ))}
       </div>
-      <Button variant="outlined" style={styles.choicebButton} onClick={onClick}>선택 완료</Button>
+      <Link to="/Main" style={styles.linkstyle}>
+        <Button variant="outlined" style={styles.choicebButton} onClick={onClick}>선택 완료</Button>
+      </Link>
     </div>
   );
 }
@@ -235,6 +237,9 @@ const styles: { [key: string]: React.CSSProperties} = {
   },
   circlediv:{
     marginRight: '40px'
+  },
+  linkstyle:{
+    textDecoration: 'none',
   }
 } as const;
 
